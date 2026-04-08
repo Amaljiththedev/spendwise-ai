@@ -1,0 +1,27 @@
+data:
+  required_columns:
+    - Date
+    - Transaction Description
+    - Category
+    - Amount
+    - Type
+  date_column: Date
+  amount_column: Amount
+  description_column: Transaction Description
+  category_column: Category
+  type_column: Type
+  encoding: utf-8
+  expense_label: Expense
+  income_label: Income
+
+  cleaning:
+    date_format: "%Y-%m-%d"
+    derived_columns:
+      month: month
+      year: year
+      day_of_week: day_of_week
+
+
+analytics:
+  top_n_categories: 3
+  trend_months: 3

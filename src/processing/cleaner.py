@@ -80,13 +80,6 @@ if __name__ == "__main__":
     print(f"Income: {len(income_df)}")
     print(cleaned_df[['Date', 'month', 'year', 'day_of_week']].head())
     print(cleaned_df['Transaction Description'].head())
-# ```
 
-# ---
 
-# ## Then Immediately Commit
 
-# The moment it runs correctly:
-# ```
-# git add src/processing/cleaner.py
-# git commit -m "Add cleaner with date parsing, normalisation and type splitting"
