@@ -32,14 +32,14 @@ def label_anomaly(row: pd.Series, thresholds: dict) -> str:
 
 
 
-def apply_anomaly_labelling(df: pd.DataFrame, thresholds: dict) -> pd.DataFrame:
+def apply_anomaly_labelling(df: pd.DataFrame, thresholds: dict, pred_col: str = "anomaly_prediction") -> pd.DataFrame:
 
     df = df.copy()
     
     df["anomaly_label"] = "normal"
 
 
-    flagged = df[df["anomaly_prediction"] == -1]
+    flagged = df[df[pred_col] == -1]
 
     if flagged.empty:
         return df
