@@ -19,7 +19,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from src.ingestion.loader import load_config, load_transactions
 from src.analytics.ml.anomaly_labeller import apply_anomaly_labelling
 from src.processing.cleaner import clean_transactions
-
+from src.analytics.ml.insight_generator import generate_insight
 
 
 
@@ -58,11 +58,12 @@ def explain_anomaly(transaction,expenses_df,config):
 
     reasons = []
 
-    if amount > cat_mean + 1.5 * cat_std:
-        multiple = round(amount / cat_mean, 1)
+    if amount < cat_mean - 2 * cat_std:
+        multiplier = round(cat_mean / amount, 1)
         reasons.append(
-            f"£{amount:.2f} is {multiple}x your usual "
-            f"average of £{cat_mean:.2f} for {category}"
+            f"£{amount:.2f} is unusually low — "
+            f"{multiplier}x below your usual average "
+            f"of £{cat_mean:.2f} for {category}"
         )
 
     if this_month_count > avg_monthly_freq * 1.5:
@@ -121,4 +122,9 @@ if __name__ == "__main__":
 
     # Step 4 — print first 5
     for r in results[:5]:
-        print(r)
+        print(f"Anomaly: {r}")
+        try:
+            insight = generate_insight(r)
+            print(f"💡 Insight: {insight}\n")
+        except Exception as e:
+            print(f"⚠️ Failed to generate insight via OpenAI: {e}\n")
