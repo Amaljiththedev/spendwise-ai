@@ -20,6 +20,12 @@ data:
       month: month
       year: year
       day_of_week: day_of_week
+      month_number: month_number
+      category_encoded: category_encoded
+  ml:
+    features: ["Amount", "month_number", "category_encoded"]
+    contamination: 0.05
+    random_state: 42
 
 
 analytics:
