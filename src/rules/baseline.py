@@ -54,19 +54,46 @@ class RuleBasedClassifier:
             "Ally": ["ally"],
             "Capital One": ["capital one"],
             "Chase": ["chase"],
-            "American Express": ["american express"]
+            "American Express": ["american express"],
+            "Food & Drink": [
+                    "food", "drink", "restaurant", "cafe", "grocery",
+                    "supermarket", "tesco", "sainsbury", "coffee",
+                    "takeaway", "starbucks", "greggs", "mcdonald",
+                    "nandos", "subway", "deliveroo", "pret", "costa"
+                ],
+
+                "Shopping": [
+                    "amazon", "amzn", "am", "eu-uk",
+                    "purchase", "shopping",
+                    "clothes", "gift",
+                    "asos", "primark", "ebay", "argos"
+                ],
+
+                "Travel": [
+                    "uber", "ubr", "bv", "trip",
+                    "ride", "taxi", "bus",
+                    "train", "petrol", "parking",
+                    "flight", "fare", "tfl", "trainline"
+                ],
+                "Entertainment": [
+                    "netflix", "net", "cinema", "spotify", 
+                    "gym", "book", "subscription"
+                ]
         }
 
     def predict(self, descriptions):
+        from src.processing.merchant_normaliser import normalise_merchant
         predictions = []
         for desc in descriptions:
             desc_lower = str(desc).lower()
+            desc_norm = normalise_merchant(desc_lower)
             best_category = "Other"
             max_matches = 0
             
+            import re
             for category, keywords in self.knowledge_base.items():
                 # Count matches for each category
-                matches = sum(1 for keyword in keywords if keyword.lower() in desc_lower)
+                matches = sum(1 for keyword in keywords if re.search(r'\b' + re.escape(keyword.lower()) + r'\b', desc_norm))
                 
                 if matches > max_matches:
                     max_matches = matches
@@ -113,7 +140,13 @@ if __name__ == "__main__":
         actuals = expenses_df[config["data"]["category_column"]]
         accuracy = (predictions == actuals).mean()
         print(f"\nRule-based Accuracy: {accuracy:.2%}")
-        
+
+        category_col = config["data"]["category_column"]
+        description_col = config["data"]["description_column"]
+        wrong = expenses_df[expenses_df[category_col] != expenses_df['Predicted_Category']]
+        print(f"\nFailed predictions: {len(wrong)}")
+        print("\nTop failure patterns:")
+        print(wrong[[description_col, category_col, 'Predicted_Category']].head(20).to_string(index=False))
     except Exception as e:
         print(f"Error during execution: {e}")
         import traceback

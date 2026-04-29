@@ -1,6 +1,8 @@
 import pandas as pd
 import pathlib
 import sys
+import re
+
 
 BASE_DIR = pathlib.Path(__file__).parent.parent.parent
 sys.path.insert(0, str(BASE_DIR))
@@ -14,12 +16,9 @@ def clean_dates(df, config):
     df[date_col] = pd.to_datetime(df[date_col], format=date_format)
     
     
-    try:
-        null_dates = df[date_col].isnull().sum()
-        if null_dates > 0:
-            raise ValueError(f"Found {null_dates} null dates")
-    except Exception as e:
-        print(f"Error: {e}")
+    null_dates = df[date_col].isnull().sum()
+    if null_dates > 0:
+        raise ValueError(f"Found {null_dates} null dates")
     
     df['month'] = df[date_col].dt.to_period('M').astype(str)
     df['year'] = df[date_col].dt.year
@@ -69,6 +68,7 @@ def clean_transactions(df, config):
     return df, expenses_df, income_df
 
 
+
 if __name__ == "__main__":
     config = load_config(BASE_DIR / "configs" / "settings.yaml")
     df = load_transactions(BASE_DIR / "data" / "raw" / "finance.csv", config)
@@ -80,6 +80,7 @@ if __name__ == "__main__":
     print(f"Income: {len(income_df)}")
     print(cleaned_df[['Date', 'month', 'year', 'day_of_week']].head())
     print(cleaned_df[config["data"]["description_column"]].head())
+    
 
 
 
