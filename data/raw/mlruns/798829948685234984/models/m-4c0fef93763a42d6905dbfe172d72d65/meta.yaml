@@ -1,0 +1,10 @@
+artifact_location: file:///Users/amaljith/Documents/spendwise-ai/data/raw/mlruns/798829948685234984/models/m-4c0fef93763a42d6905dbfe172d72d65/artifacts
+creation_timestamp: 1777457559978
+experiment_id: '798829948685234984'
+last_updated_timestamp: 1777457562240
+model_id: m-4c0fef93763a42d6905dbfe172d72d65
+model_type: null
+name: vectorizer
+source_run_id: fd2308e0173e493fb0511b742687120e
+status: 2
+status_message: null

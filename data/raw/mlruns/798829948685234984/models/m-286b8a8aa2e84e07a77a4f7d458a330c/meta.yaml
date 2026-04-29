@@ -1,0 +1,10 @@
+artifact_location: file:///Users/amaljith/Documents/spendwise-ai/data/raw/mlruns/798829948685234984/models/m-286b8a8aa2e84e07a77a4f7d458a330c/artifacts
+creation_timestamp: 1777459067059
+experiment_id: '798829948685234984'
+last_updated_timestamp: 1777459070171
+model_id: m-286b8a8aa2e84e07a77a4f7d458a330c
+model_type: null
+name: classifier
+source_run_id: fa07d4ff967d4683baac4ef749ce41c1
+status: 2
+status_message: null

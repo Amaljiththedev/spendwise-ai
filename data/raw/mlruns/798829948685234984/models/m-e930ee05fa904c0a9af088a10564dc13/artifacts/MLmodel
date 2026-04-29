@@ -1,0 +1,14 @@
+artifact_path: file:///Users/amaljith/Documents/spendwise-ai/data/raw/mlruns/798829948685234984/models/m-e930ee05fa904c0a9af088a10564dc13/artifacts
+flavors:
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.6.1
+mlflow_version: 3.1.4
+model_id: m-e930ee05fa904c0a9af088a10564dc13
+model_size_bytes: 11167
+model_uuid: m-e930ee05fa904c0a9af088a10564dc13
+prompts: null
+run_id: e36aaebf40f844e2ae913b840c73eeb1
+utc_time_created: '2026-04-29 10:14:46.666975'

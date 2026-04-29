@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/amaljith/Documents/spendwise-ai/data/raw/mlruns/798829948685234984/fd2308e0173e493fb0511b742687120e/artifacts
+end_time: 1777457562244
+entry_point_name: ''
+experiment_id: '798829948685234984'
+lifecycle_stage: active
+run_id: fd2308e0173e493fb0511b742687120e
+run_name: tfidf-logreg-realistic-data
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1777457556875
+status: 3
+tags: []
+user_id: amaljith

@@ -23,7 +23,7 @@ def main():
     config = load_config(PROJECT_ROOT / "configs" / "settings.yaml")
 
     data = load_transactions(
-        PROJECT_ROOT / "data" / "raw" / "real_training_data.csv",
+        PROJECT_ROOT / "data" / "raw" / "finance.csv",
         config
     )
 
@@ -132,16 +132,30 @@ def main():
                            accuracy - baseline_accuracy)
 
         # log model
-        mlflow.sklearn.log_model(model, "classifier")
-        mlflow.sklearn.log_model(vectorizer, "vectorizer")
+        input_example = X_train[:3].toarray()
+        mlflow.sklearn.log_model(
+            model,
+            name="classifier",
+            input_example=input_example
+        )
+        
+        import tempfile
+        import os
+        with tempfile.TemporaryDirectory() as tmp:
+            vec_path = os.path.join(tmp, "vectorizer.pkl")
+            joblib.dump(vectorizer, vec_path)
+            mlflow.log_artifact(vec_path, "vectorizer")
 
         print(f"MLflow run ID: {mlflow.active_run().info.run_id}")
 
     # --- Save model locally as well ---
-    joblib.dump(model, "model.pkl")
-    joblib.dump(vectorizer, "vectorizer.pkl")
+    models_dir = PROJECT_ROOT / "models"
+    models_dir.mkdir(exist_ok=True)
+    
+    joblib.dump(model, models_dir / "ml_model.pkl")
+    joblib.dump(vectorizer, models_dir / "vectorizer.pkl")
 
-    print("Model and vectorizer saved successfully")
+    print("Model and vectorizer saved successfully to models/")
 
 
 if __name__ == "__main__":
