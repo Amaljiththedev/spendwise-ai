@@ -1,3 +1,5 @@
 venv/
 .mplconfig/
 anomaly_detection.png
+.env
+*.pkl

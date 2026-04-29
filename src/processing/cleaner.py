@@ -79,7 +79,7 @@ if __name__ == "__main__":
     print(f"Expenses: {len(expenses_df)}")
     print(f"Income: {len(income_df)}")
     print(cleaned_df[['Date', 'month', 'year', 'day_of_week']].head())
-    print(cleaned_df['Transaction Description'].head())
+    print(cleaned_df[config["data"]["description_column"]].head())
 
 
 

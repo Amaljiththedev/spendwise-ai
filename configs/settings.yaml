@@ -1,13 +1,13 @@
 data:
   required_columns:
     - Date
-    - Transaction Description
+    - Description
     - Category
     - Amount
     - Type
   date_column: Date
   amount_column: Amount
-  description_column: Transaction Description
+  description_column: Description
   category_column: Category
   type_column: Type
   encoding: utf-8
@@ -23,9 +23,12 @@ data:
       month_number: month_number
       category_encoded: category_encoded
   ml:
-    features: ["Amount", "month_number", "category_encoded"]
-    contamination: 0.05
+    features: ["Amount", "month_number", "day_of_month", "day_of_week_num", "cat_*"]
+    contamination: 0.03
     random_state: 42
+    per_category:
+      enabled: false
+      min_category_size: 30
 
 
 analytics:
